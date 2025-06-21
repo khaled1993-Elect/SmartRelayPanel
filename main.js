@@ -1,82 +1,7 @@
 const broker = 'wss://test.mosquitto.org:8081';
-
-let token = '',
-    controlTopics = [],
-    statusTopics = [],
-    topicHello = '',
-    client,
-    helloReceived = false,
-    helloTimeout,
-    relayNamesKey = '',
-    relayNames = [],
-    isEditing = false,
-    schedules = [];
-
-// Multi-device support
-let devices = JSON.parse(localStorage.getItem('devices')) || [];
-let currentDeviceIndex = -1;
-
-function saveDevices() {
-  localStorage.setItem('devices', JSON.stringify(devices));
-}
-
-function updateDeviceList() {
-  const sel = document.getElementById('deviceList');
-  sel.innerHTML = '';
-  devices.forEach((token, idx) => {
-    const opt = document.createElement('option');
-    opt.value = idx;
-    opt.textContent = token ? `Device ${idx + 1}` : 'Unnamed';
-    if (idx === currentDeviceIndex) opt.selected = true;
-    sel.appendChild(opt);
-  });
-  sel.style.display = devices.length > 0 ? 'inline-block' : 'none';
-}
-
-// Show modal for adding device
-document.getElementById('addDeviceBtn').onclick = function() {
-  document.getElementById('addDeviceModal').classList.add('active');
-  document.getElementById('newDeviceTokenInput').value = '';
-  document.getElementById('addDeviceMessage').innerText = '';
-};
-
-// Hide modal
-document.getElementById('cancelAddDeviceBtn').onclick = function() {
-  document.getElementById('addDeviceModal').classList.remove('active');
-};
-
-// Confirm add device
-document.getElementById('confirmAddDeviceBtn').onclick = function() {
-  const t = document.getElementById('newDeviceTokenInput').value.trim();
-  const msg = document.getElementById('addDeviceMessage');
-  if (!t) {
-    msg.innerText = 'Please enter a device token.';
-    return;
-  }
-  if (devices.includes(t)) {
-    msg.innerText = 'Device already added.';
-    return;
-  }
-  devices.push(t);
-  saveDevices();
-  updateDeviceList();
-  document.getElementById('addDeviceModal').classList.remove('active');
-  switchDevice(devices.length - 1);
-};
-
-// Device switching
-document.getElementById('deviceList').onchange = function() {
-  switchDevice(Number(this.value));
-};
-
-function switchDevice(idx) {
-  if (idx < 0 || idx >= devices.length) return;
-  currentDeviceIndex = idx;
-  token = devices[idx];
-  document.getElementById('tokenInput').value = token;
-  pair();
-  updateDeviceList();
-}
+let token = '', controlTopics = [], statusTopics = [], topicHello = '',
+    client, helloReceived = false, helloTimeout,
+    relayNamesKey = '', relayNames = [], isEditing = false, schedules = [];
 
 // === Pairing ===
 function pair() {
@@ -88,7 +13,6 @@ function pair() {
   topicHello = `${token}/status/hello`;
   relayNamesKey = `${token}_relay_names`;
   msg.innerText = 'Connecting...';
-  if (client && client.connected) client.end();
   client = mqtt.connect(broker);
 
   client.on('connect', () => {
@@ -199,10 +123,11 @@ function toggleEdit() {
   if (!isEditing) localStorage.setItem(relayNamesKey, JSON.stringify(relayNames));
 }
 
+
 function showPage(id) {
   document.querySelectorAll('main, .page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.getElementById('editBtn').style.display = (id === 'panelPage') ? 'inline-block' : 'none';
+  document.getElementById('editBtn').style.display = (id === 'panelPage') ? 'block' : 'none';
 }
 
 // === Scheduler ===
@@ -258,25 +183,6 @@ setInterval(() => {
 }, 30000);
 
 // === Event Listeners ===
-document.getElementById('pairBtn').onclick = function() {
-  // If not in device list, add it for convenience
-  const t = document.getElementById('tokenInput').value.trim();
-  if (t && !devices.includes(t)) {
-    devices.push(t);
-    saveDevices();
-    updateDeviceList();
-    currentDeviceIndex = devices.length - 1;
-  }
-  pair();
-};
+document.getElementById('pairBtn').onclick = pair;
 document.getElementById('editBtn').onclick = toggleEdit;
 document.getElementById('addScheduleBtn').onclick = addSchedule;
-
-// Initialize UI
-updateDeviceList();
-if (devices.length > 0) {
-  switchDevice(0);
-} else {
-  document.getElementById('pairing').style.display = 'flex';
-  showPage('panelPage');
-}
