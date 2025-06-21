@@ -9,8 +9,23 @@
 <body>
   <header>
     Smart Relay Panel <span id="status-dot"></span>
+    <select id="deviceList" title="Switch Device"></select>
+    <button id="addDeviceBtn" title="Add Device">+</button>
     <button id="editBtn">✎</button>
   </header>
+
+  <!-- Add Device Modal -->
+  <div id="addDeviceModal">
+    <div class="modal-content">
+      <h2>Add New Device</h2>
+      <input type="password" id="newDeviceTokenInput" placeholder="Device Token" />
+      <div>
+        <button id="confirmAddDeviceBtn">Add</button>
+        <button id="cancelAddDeviceBtn">Cancel</button>
+      </div>
+      <p id="addDeviceMessage"></p>
+    </div>
+  </div>
 
   <!-- Pairing -->
   <div id="pairing">
