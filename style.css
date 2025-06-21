@@ -16,10 +16,6 @@ header {
   font-size: 22px;
   font-weight: bold;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 }
 
 #status-dot {
@@ -30,97 +26,22 @@ header {
   margin-left: 10px;
 }
 
-#editBtn, #addDeviceBtn {
-  position: relative;
+#editBtn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
   background: transparent;
   border: none;
   color: #aaa; /* neutral gray */
   font-size: 22px;
   cursor: pointer;
-  margin-left: 10px;
   display: none;
 }
 
-#editBtn {
-  display: none;
-}
-
-#addDeviceBtn {
-  display: inline-block;
-}
-
-#editBtn:hover, #addDeviceBtn:hover {
+#editBtn:hover {
   color: #eee;
 }
 
-#deviceList {
-  background: #1e1e1e;
-  color: #eee;
-  border: 1px solid #444;
-  border-radius: 4px;
-  margin-left: 14px;
-  font-size: 16px;
-  padding: 3px 8px;
-  outline: none;
-}
-
-#addDeviceModal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.6);
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-#addDeviceModal.active {
-  display: flex;
-}
-
-#addDeviceModal .modal-content {
-  background: #222;
-  padding: 24px;
-  border-radius: 8px;
-  min-width: 300px;
-  color: #eee;
-  box-shadow: 0 8px 32px #0009;
-  text-align: center;
-}
-
-#addDeviceModal input {
-  width: 100%;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #444;
-  margin-bottom: 8px;
-  background: #1e1e1e;
-  color: #eee;
-}
-
-#addDeviceModal button {
-  margin-right: 10px;
-  padding: 8px 16px;
-  border-radius: 4px;
-  background: #4caf50;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-}
-
-#addDeviceModal button:last-child {
-  background: #888;
-}
-
-#addDeviceModal h2 {
-  margin-top: 0;
-}
-
-#addDeviceMessage {
-  color: #f55;
-  margin: 6px 0 0 0;
-  font-size: 14px;
-}
 
 #pairing {
   flex: 1;
@@ -219,6 +140,8 @@ main.active, .page.active {
 .breaker .label.off {
   bottom: 8px;
 }
+
+
 
 footer {
   background: #333;
