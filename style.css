@@ -1,0 +1,230 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #1e1e1e;
+  color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: #333;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+}
+
+#status-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+#editBtn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: transparent;
+  border: none;
+  color: #aaa; /* neutral gray */
+  font-size: 22px;
+  cursor: pointer;
+  display: none;
+}
+
+#editBtn:hover {
+  color: #eee;
+}
+
+
+#pairing {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+main, .page {
+  flex: 1;
+  padding: 20px;
+  display: none;
+}
+
+main.active, .page.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin-bottom: 20px;
+}
+
+.breaker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.breaker-card .name,
+.breaker-card .name-input {
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ccc;
+}
+
+.breaker-card .name-input {
+  width: 90px;
+  text-align: center;
+}
+
+.breaker {
+  position: relative;
+  width: 80px;
+  height: 100px;
+  background: #222;
+  border-radius: 10px;
+  box-shadow: inset 0 0 8px #000;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden; /* important: clip labels */
+}
+
+.breaker .handle {
+  position: absolute;
+  width: calc(100% - 20px);
+  left: 10px;
+  height: 35px; /* reasonable size, not huge */
+  background: linear-gradient(to bottom, #bbb, #888); /* gradient for 3D effect */
+  border-radius: 6px;
+  bottom: 10px; /* default OFF position: covers OFF label */
+  transition: bottom 0.25s, background 0.25s, box-shadow 0.25s;
+  text-align: center;
+  line-height: 35px;
+  font-weight: bold;
+  color: #111;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4); /* 3D shadow */
+}
+
+.breaker.on .handle {
+  bottom: 55px; /* slides up: covers ON label */
+  background: linear-gradient(to bottom, #4caf50, #388e3c); /* green gradient for ON */
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.6); /* slightly stronger shadow when ON */
+}
+
+.breaker .label {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #ccc;
+  pointer-events: none;
+}
+
+.breaker .label.on {
+  top: 8px;
+}
+
+.breaker .label.off {
+  bottom: 8px;
+}
+
+
+
+footer {
+  background: #333;
+  padding: 10px;
+  text-align: center;
+}
+
+footer button {
+  margin: 0 10px;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  border-radius: 8px;
+  width: 60px;
+  height: 60px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+footer button svg {
+  width: 24px;
+  height: 24px;
+  fill: #aaa;
+}
+
+footer button span {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+footer button:hover svg {
+  fill: #eee;
+}
+
+.schedule-form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.schedule-form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.day-btn {
+  padding: 5px 8px;
+  border: 1px solid #aaa;
+  background: transparent;
+  color: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.day-btn.active {
+  background: #4caf50;
+  color: #fff;
+  border-color: #4caf50;
+}
+
+.schedule-list {
+  margin-top: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.schedule-item {
+  background: #2a2a2a;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.schedule-item button {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+}

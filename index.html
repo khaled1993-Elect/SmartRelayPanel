@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Relay — Refined Scheduler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    Smart Relay Panel <span id="status-dot"></span>
+    <button id="editBtn">✎</button>
+  </header>
+
+  <!-- Pairing -->
+  <div id="pairing">
+    <h2>Enter Device Token</h2>
+    <div id="pairForm">
+      <input type="password" id="tokenInput" placeholder="Device Token" />
+      <button id="pairBtn">Pair</button>
+    </div>
+    <p id="pairMessage"></p>
+  </div>
+
+  <!-- Main -->
+  <main id="panelPage">
+    <div class="grid" id="breakerGrid"></div>
+  </main>
+
+  <!-- Scheduler -->
+  <div class="page" id="schedulePage">
+    <h2>Scheduler</h2>
+    <div class="schedule-form">
+      <label>Relay:
+        <select id="scheduleRelay"></select>
+      </label>
+      <label>Action:
+        <select id="scheduleAction">
+          <option>ON</option>
+          <option>OFF</option>
+        </select>
+      </label>
+      <label>Time:
+        <input type="time" id="scheduleTime">
+      </label>
+      <div style="margin:10px 0;">Repeat on days:</div>
+      <div id="dayButtons" style="display:flex; gap:5px; flex-wrap:wrap;">
+        <button type="button" class="day-btn" data-day="0">Mon</button>
+        <button type="button" class="day-btn" data-day="1">Tue</button>
+        <button type="button" class="day-btn" data-day="2">Wed</button>
+        <button type="button" class="day-btn" data-day="3">Thu</button>
+        <button type="button" class="day-btn" data-day="4">Fri</button>
+        <button type="button" class="day-btn" data-day="5">Sat</button>
+        <button type="button" class="day-btn" data-day="6">Sun</button>
+      </div>
+      <button id="addScheduleBtn">Add Schedule</button>
+    </div>
+    <div class="schedule-list" id="scheduleList"></div>
+  </div>
+
+  <!-- Scene -->
+  <div class="page" id="scenePage">
+    <h2>Scenes (Scenarios)</h2>
+    <p>Combine multiple actions into one scenario — coming soon!</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <button onclick="showPage('panelPage')">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21H3V9.5z"/></svg><span>Home</span>
+    </button>
+    <button onclick="showPage('schedulePage')">
+      <svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 1 0 22A11 11 0 0 1 12 1zm0 2a9 9 0 1 0 0 18A9 9 0 0 0 12 3zm-.5 4h1v6l5 3-.5.9L11.5 14V7z"/></svg><span>Scheduler</span>
+    </button>
+    <button onclick="showPage('scenePage')">
+      <svg viewBox="0 0 24 24"><path d="M12 2 1 7l11 5 9-4.09V17l-9 4-9-4V8.91L12 13l9-4-9-7z"/></svg><span>Scene</span>
+    </button>
+  </footer>
+
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
